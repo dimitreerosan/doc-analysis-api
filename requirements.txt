@@ -1,13 +1,13 @@
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
-pydantic==2.8.2
+pydantic==2.9.2
 PyMuPDF==1.24.14
 python-docx==1.1.2
 pytesseract==0.3.13
 Pillow==12.1.1
 
-# FIXED NLP STACK - Python 3.14 compatible (prebuilt wheels)
-numpy==2.1.0
+# FIXED NLP STACK - Python 3.10 compatible (prebuilt wheels)
+numpy==1.26.4
 spacy==3.8.2
 thinc==8.3.2
 blis==1.0.1
