@@ -68,6 +68,20 @@ async def unhandled_exception_handler(_: Request, __: Exception):
     )
 
 
+@app.get("/")
+def root():
+    return {
+        "status": "running",
+        "project": "AI-Powered Document Analysis & Extraction API",
+        "creator": "DIMITREE",
+        "docs": "/docs",
+        "endpoints": {
+            "health": "GET /health",
+            "analyze": "POST /analyze  (Bearer token required)",
+        },
+    }
+
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
