@@ -1,5 +1,6 @@
 import os
 from fastapi import Depends, FastAPI, HTTPException, Request, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
@@ -34,18 +35,13 @@ def _get_api_key() -> str:
     return api_key
 
 
-def api_key_auth(request: Request) -> None:
+security = HTTPBearer()
+
+
+def api_key_auth(credentials: HTTPAuthorizationCredentials = Depends(security)) -> None:
     expected = _get_api_key()
 
-    auth = request.headers.get("Authorization", "")
-    parts = auth.split()
-    if len(parts) != 2 or parts[0].lower() != "bearer":
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing or invalid Authorization header",
-        )
-
-    if parts[1] != expected:
+    if credentials.credentials != expected:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid API key",
